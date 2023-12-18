@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import './SearchBar.css'
 
-function SearchBar() {
-    const {query, setQuery} = useState("");
+const SearchBar = () => {
 
     return (
         <>
-            <div className="searchBar"> 
-                <input type="text" placeholder="Enter Song Name" />
+      <div className="searchBar">
+        <input type="text" placeholder="Enter Song Name" />
+      </div>
+            <div className="searchButton-container">
+                <button className="searchButton">
+                  SEARCH
+                </button>
             </div>
-            <div className="searchButton">
-                <button>SEARCH</button>
-            </div>
-        </>
+    </>   
     )
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './App.css'
+import './App.css';
 import Playlist from "../Playlist/Playlist.js";
 import SearchBar from "../SearchBar/SearchBar.js";
 import SearchResults from "../SearchResults/SearchResults.js";
@@ -15,7 +15,11 @@ function App() {
       <div className="app">
         <SearchBar />
 
-        <SearchResults />
+        <div className="Results-Playlist-Container">
+          <SearchResults />
+
+          <Playlist />
+        </div>
       </div>
     </>
   );
