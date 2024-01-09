@@ -41,9 +41,8 @@
     border-radius: 25px;
 }
 
-.Playlist-save:hover {
+.Playlist-save:active {
     background-color: #009DFF;
-    transition: all 0.3s ease 0s;
 }
 
 ::-webkit-scrollbar {

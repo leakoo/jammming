@@ -20,17 +20,15 @@ function Track(props) {
   }
 
   return (
-    <>
-      <div className="Track">
-        <div className="Track-Info">
-          <h4></h4>
-          <p>
-
-          </p>
-        </div>
-        {renderAction()}
+    <div className="Track">
+      <div className="Track-Info">
+        <h3>{props.track.name}</h3>
+        <p>
+          {props.track.artist} | {props.track.album}
+        </p>
       </div>
-    </>
+      {renderAction()}
+    </div>
   )
 }
 

@@ -4,16 +4,16 @@ import './SearchBar.css'
 const SearchBar = () => {
 
     return (
-        <>
       <div className="searchBar">
         <input type="text" placeholder="Enter Song Name" />
+
+        <div className="searchButton-container">
+           <button className="searchButton">
+             SEARCH
+            </button>
+        </div>
+        
       </div>
-            <div className="searchButton-container">
-                <button className="searchButton">
-                  SEARCH
-                </button>
-            </div>
-    </>   
     )
 }
 

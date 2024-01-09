@@ -34,6 +34,7 @@
 .searchButton {
     height: 3.125rem;
     width: 150px;
+    margin-top: 30px;
     font-weight: bold;
     font-size: 1.3rem;
     background-color: #00FFFA;
@@ -43,7 +44,6 @@
     border-radius: 25px;
 }
 
-.searchButton:hover {
+.searchButton:active{
     background-color: #009DFF;
-    transition: all 0.3s ease 0s;
 }
