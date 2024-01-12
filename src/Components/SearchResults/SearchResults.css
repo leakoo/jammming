@@ -1,7 +1,7 @@
 .SearchResults {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 47%;
     height: 950px;
     margin: 4.68rem 0 1.875rem 4.375rem;
     overflow-y: scroll;
