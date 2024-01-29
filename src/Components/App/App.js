@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useCallback} from "react";
 import './App.css';
 import Playlist from "../Playlist/Playlist.js";
 import SearchBar from "../SearchBar/SearchBar.js";
 import SearchResults from "../SearchResults/SearchResults.js";
 
 function App() {
+  
   const [searchResults, setsearchResults] = useState([
     {
       name: 'Song name-1',
@@ -30,6 +31,26 @@ function App() {
     }
   ]);
 
+  const addTrack = useCallback(
+    (track) => {
+    if (playlistTracks.find((savedTrack) => savedTrack.id === track.id))
+      return;
+    setplaylistTracks((lastTrack) => [...lastTrack, track]);
+    },
+    [playlistTracks]
+  ); 
+
+    const removeTrack = useCallback((track) => {
+        setplaylistTracks((playlistTrack) =>
+          playlistTrack.filter((currentTrack) => currentTrack.id !== track.id)
+        );
+      },
+      []);
+
+      const renamePlaylist = useCallback((name) => {
+        setplaylistName(name);
+      },[])
+
   return (
     <>
       <h1 className="title">
@@ -39,11 +60,13 @@ function App() {
         <SearchBar />
 
         <div className="Results-Playlist-Container">
-          <SearchResults searchResults={searchResults} />
+          <SearchResults searchResults={searchResults} onAdd={addTrack} />
 
           <Playlist
             playlistName={playlistName}
             playlistTracks={playlistTracks}
+            onRemove={removeTrack}
+            onNameChange={renamePlaylist}
           />
         </div>
       </div>
