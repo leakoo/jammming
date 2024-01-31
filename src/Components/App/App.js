@@ -40,16 +40,25 @@ function App() {
     [playlistTracks]
   ); 
 
-    const removeTrack = useCallback((track) => {
-        setplaylistTracks((playlistTrack) =>
-          playlistTrack.filter((currentTrack) => currentTrack.id !== track.id)
-        );
-      },
-      []);
+  const removeTrack = useCallback((track) => {
+      setplaylistTracks((playlistTrack) =>
+        playlistTrack.filter((currentTrack) => currentTrack.id !== track.id)
+      );
+    },
+    []
+  );
 
-      const renamePlaylist = useCallback((name) => {
-        setplaylistName(name);
-      },[])
+  const renamePlaylist = useCallback((name) => {
+    setplaylistName(name);
+    },
+    []
+  );
+
+  const savePlaylist = useCallback(() => {
+    const trackURI = playlistTracks.map((track) => track.uri);
+    },
+    [playlistTracks]
+  );
 
   return (
     <>
@@ -67,6 +76,7 @@ function App() {
             playlistTracks={playlistTracks}
             onRemove={removeTrack}
             onNameChange={renamePlaylist}
+            onSave={savePlaylist}
           />
         </div>
       </div>
