@@ -3,10 +3,11 @@ import './App.css';
 import Playlist from "../Playlist/Playlist.js";
 import SearchBar from "../SearchBar/SearchBar.js";
 import SearchResults from "../SearchResults/SearchResults.js";
+import Spotify from "../../Util/Spotify.js";
 
 function App() {
   
-  const [searchResults, setsearchResults] = useState([
+  const [searchResults, setSearchResults] = useState([
     {
       name: 'Song name-1',
       artist: 'Artist 1',
@@ -32,10 +33,13 @@ function App() {
   ]);
 
   const addTrack = useCallback(
-    (track) => {
-    if (playlistTracks.find((savedTrack) => savedTrack.id === track.id))
-      return;
-    setplaylistTracks((lastTrack) => [...lastTrack, track]);
+      (track) => {
+        if (playlistTracks.find((savedTrack) => savedTrack.id === track.id)) {
+          console.log('Adding track to playlist:', track);
+          return;
+        }
+        console.log('Adding track to playlist:', track);
+        setplaylistTracks((lastTrack) => [...lastTrack, track]);
     },
     [playlistTracks]
   ); 
@@ -60,13 +64,19 @@ function App() {
     [playlistTracks]
   );
 
+  const search = useCallback((term) => {
+    Spotify.getAccessToken().then(() => {
+      Spotify.search(term).then(setSearchResults);
+    });
+  }, []);
+
   return (
     <>
       <h1 className="title">
         <span>Ja</span>mmm<span>ing</span>
       </h1>
       <div className="app">
-        <SearchBar />
+        <SearchBar onSearch={search}/>
 
         <div className="Results-Playlist-Container">
           <SearchResults searchResults={searchResults} onAdd={addTrack} />
