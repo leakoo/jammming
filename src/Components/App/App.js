@@ -22,8 +22,8 @@ function App() {
     },
   ]);
 
-  const [playlistName, setplaylistName] = useState('Playlist Name');
-  const [playlistTracks, setplaylistTracks] = useState([
+  const [playlistName, setPlaylistName] = useState('Playlist Name');
+  const [playlistTracks, setPlaylistTracks] = useState([
     {
       name: 'Song name-2',
       artist: 'Artist 2',
@@ -33,35 +33,40 @@ function App() {
   ]);
 
   const addTrack = useCallback(
-      (track) => {
-        if (playlistTracks.find((savedTrack) => savedTrack.id === track.id)) {
-          console.log('Adding track to playlist:', track);
-          return;
-        }
+    (track) => {
+      if (playlistTracks.find((savedTrack) => savedTrack.id === track.id)) {
         console.log('Adding track to playlist:', track);
-        setplaylistTracks((lastTrack) => [...lastTrack, track]);
-    },
+        return;
+      }
+      console.log('Adding track to playlist:', track);
+      setPlaylistTracks((lastTrack) => [...lastTrack, track]);
+  },
     [playlistTracks]
   ); 
 
   const removeTrack = useCallback((track) => {
-      setplaylistTracks((playlistTrack) =>
-        playlistTrack.filter((currentTrack) => currentTrack.id !== track.id)
-      );
-    },
+    console.log('Removing track from playlist', track);
+    setPlaylistTracks((playlistTrack) =>
+      playlistTrack.filter((currentTrack) => currentTrack.id !== track.id)
+    );
+  },
     []
   );
 
   const renamePlaylist = useCallback((name) => {
-    setplaylistName(name);
+    setPlaylistName(name);
     },
     []
   );
 
   const savePlaylist = useCallback(() => {
-    const trackURI = playlistTracks.map((track) => track.uri);
+    const trackURIs = playlistTracks.map((track) => track.uri);
+    Spotify.saveUserPlaylist(playlistName, trackURIs).then(() => {
+      setPlaylistName('Playlist Name');
+      setPlaylistTracks([]);
+      })
     },
-    [playlistTracks]
+    [playlistName, playlistTracks]
   );
 
   const search = useCallback((term) => {
