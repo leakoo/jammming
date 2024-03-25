@@ -1,38 +1,58 @@
 .Track {
-    display: flex;
-    align-items: center;
-    padding-left: 1.563rem;
+  display: flex;
+  align-items: center;
+  padding-left: 1.563rem;
 }
 
 .Track-action {
-    cursor: pointer;
-    padding: 9px;
-    font-size: 1.2rem;
-    transition: color .2s;
-    background-color: #000;
-    color: #FFF;
-    border: 0px;
+  cursor: pointer;
+  padding: 9px;
+  font-size: 1.2rem;
+  transition: color 0.2s;
+  background-color: #000;
+  color: #fff;
+  border: 0px;
 }
 
 .Track-action:hover {
-    color: #a8aaad;
+  color: #a8aaad;
 }
 
 .Track-Info {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    justify-content: center;
-    height: 5.313rem;
-    border-bottom: 1px solid #FFF;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  height: 5.313rem;
+  border-bottom: 1px solid #fff;
 }
 
-.Track-Info h3 {
-    font-size: 1.35rem;
-    margin-bottom: .20rem;
+h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.2rem;
 }
 
-.Track-Info p {
-    font-size: 1.05rem;
-    color: #a8aaad;
+p {
+  font-size: 1.05rem;
+  color: #a8aaad;
+}
+
+@media only screen and (max-width: 480px) {
+  .Track-Info h3 {
+    font-size: 0.9rem;
+  }
+
+  .Track-Info p {
+    font-size: 0.7rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+  }
 }
