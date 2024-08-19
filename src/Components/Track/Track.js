@@ -1,7 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import "./Track.css";
 
 function Track(props) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = React.createRef();
+
   const addTrack = useCallback(
     (e) => {
       props.onAdd(props.track);
@@ -15,6 +18,10 @@ function Track(props) {
     },
     [props.onRemove, props.track]
   );
+
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying);
+  };
 
   const renderAction = () => {
     if (props.isRemoval) {
@@ -41,6 +48,17 @@ function Track(props) {
         </p>
       </div>
       {renderAction()}
+
+      {/*<button onClick={togglePlay} className="previewButton">
+        {isPlaying ? "Pause" : "Play"}
+      </button>
+
+      {isPlaying && (
+        <audio ref={audioRef} className="customAudio" controls>
+          <source src={props.track.previewUrl} type="audio/mpeg" />
+        </audio>
+      )}
+      */}
     </div>
   );
 }

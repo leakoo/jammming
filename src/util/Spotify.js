@@ -1,5 +1,5 @@
-const clientID = "ca8137b016174345a9913b5ee3604e96";
-const redirectURI = "http://localhost:3000";
+const clientID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+const redirectURI = process.env.REACT_APP_REDIRECT_URI;
 const scope =
   "playlist-modify-private playlist-modify-public user-read-private user-read-email";
 let accessToken = null;
@@ -44,6 +44,7 @@ const Spotify = {
       artist: t.artists[0].name,
       album: t.album.name,
       uri: t.uri,
+      previewUrl: t.preview_url,
     }));
   },
 
