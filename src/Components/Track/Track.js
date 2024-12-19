@@ -1,10 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import "./Track.css";
 
 function Track(props) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = React.createRef();
-
   const addTrack = useCallback(
     (e) => {
       props.onAdd(props.track);
@@ -19,20 +16,16 @@ function Track(props) {
     [props.onRemove, props.track]
   );
 
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-  };
-
   const renderAction = () => {
     if (props.isRemoval) {
       return (
-        <button className="Track-action" onClick={removeTrack}>
+        <button className="trackAction" onClick={removeTrack}>
           -
         </button>
       );
     } else {
       return (
-        <button className="Track-action" onClick={addTrack}>
+        <button className="trackAction" onClick={addTrack}>
           +
         </button>
       );
@@ -40,25 +33,15 @@ function Track(props) {
   };
 
   return (
-    <div className="Track">
-      <div className="Track-Info">
+    <div className="track">
+      <img className="albumImage" src={props.track.albumImage}/>
+      <div className="trackInfo">
         <h3>{props.track.name}</h3>
         <p>
           {props.track.artist} | {props.track.album}
         </p>
       </div>
       {renderAction()}
-
-      {/*<button onClick={togglePlay} className="previewButton">
-        {isPlaying ? "Pause" : "Play"}
-      </button>
-
-      {isPlaying && (
-        <audio ref={audioRef} className="customAudio" controls>
-          <source src={props.track.previewUrl} type="audio/mpeg" />
-        </audio>
-      )}
-      */}
     </div>
   );
 }

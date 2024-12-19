@@ -1,63 +1,23 @@
-.Track {
-  display: flex;
-  align-items: center;
-  padding-left: 1.563rem;
+.track {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
 }
 
-.Track-action {
-  cursor: pointer;
-  padding: 9px;
-  font-size: 1.2rem;
-  transition: color 0.2s;
-  background-color: #000;
-  color: #fff;
-  border: 0px;
+.trackInfo {
+    background-color: #19ca31;
+    padding: 0.65rem;
 }
 
-.Track-action:hover {
-  color: #a8aaad;
+.albumImage {
+    width: 75px;
+    height: auto;
 }
 
-.Track-Info {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  justify-content: center;
-  height: 5.313rem;
-  border-bottom: 1px solid #fff;
-}
-
-.customAudio {
-  width: 150px;
-  height: 30px;
-}
-
-h3 {
-  font-size: 1.35rem;
-  margin-bottom: 0.2rem;
-}
-
-p {
-  font-size: 1.05rem;
-  color: #a8aaad;
-}
-
-@media only screen and (max-width: 480px) {
-  .Track-Info h3 {
-    font-size: 0.9rem;
-  }
-
-  .Track-Info p {
-    font-size: 0.7rem;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  h3 {
-    font-size: 1.1rem;
-  }
-
-  p {
-    font-size: 0.8rem;
-  }
+.trackAction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
 }

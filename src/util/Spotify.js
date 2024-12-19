@@ -6,7 +6,11 @@ let accessToken = null;
 
 const Spotify = {
   getAccessToken() {
-    if (accessToken) return Promise.resolve(accessToken);
+    const storedToken = localStorage.getItem('spotifyAccessToken');
+    if (storedToken) {
+      accessToken = storedToken;
+      return Promise.resolve(accessToken);
+    }
 
     const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
     const expireTimeMatch = window.location.href.match(/expires_in=([^&]*)/);
@@ -15,7 +19,13 @@ const Spotify = {
       accessToken = accessTokenMatch[1];
       const expiresIn = Number(expireTimeMatch[1]);
 
-      window.setTimeout(() => (accessToken = ""), expiresIn * 1000);
+      localStorage.setItem('spotifyAccessToken', accessToken);
+
+      window.setTimeout(() => {
+        localStorage.removeItem('spotifyAccessToken');
+        accessToken = "";
+      }, expiresIn * 1000);
+
       window.history.pushState("Access Token", null, "/");
       return Promise.resolve(accessToken);
     } else {
@@ -26,7 +36,11 @@ const Spotify = {
   },
 
   async search(term) {
-    accessToken = await Spotify.getAccessToken();
+
+    if (!accessToken) {
+      accessToken = await Spotify.getAccessToken();
+    }
+
     const response = await fetch(
       `https://api.spotify.com/v1/search?type=track&q=${term}`,
       {
@@ -34,15 +48,19 @@ const Spotify = {
         headers: { Authorization: `Bearer ${accessToken}` },
       }
     );
+
     const JSONresponse = await response.json();
-    if (!JSONresponse) {
+
+    if (!JSONresponse || !JSONresponse.tracks || !JSONresponse.tracks.items) {
       return [];
     }
+
     return JSONresponse.tracks.items.map((t) => ({
       id: t.id,
       name: t.name,
       artist: t.artists[0].name,
       album: t.album.name,
+      albumImage: t.album.images[0].url,
       uri: t.uri,
       previewUrl: t.preview_url,
     }));
@@ -51,12 +69,14 @@ const Spotify = {
   async saveUserPlaylist(name, trackURIs) {
     if (!name || !trackURIs) return;
     accessToken = await Spotify.getAccessToken();
+
     const header = { Authorization: `Bearer ${accessToken}` };
     let userID;
 
     const userResponse = await fetch(`https://api.spotify.com/v1/me`, {
       headers: header,
     });
+
     const JSONresponse = await userResponse.json();
     userID = JSONresponse.id;
 
@@ -69,6 +89,7 @@ const Spotify = {
         body: JSON.stringify({ name: name }),
       }
     );
+
     const playlistJSONresponse = await createPlaylistResponse.json();
     playlistID = playlistJSONresponse.id;
 

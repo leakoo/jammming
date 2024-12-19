@@ -8,13 +8,14 @@ const SearchBar = (props) => {
     setSearch(e.target.value);
   };
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
+
     if (Search.trim() !== "") {
       props.onSearch(Search);
     } else {
       alert("Please enter a song name");
     }
-    props.onSearch(Search);
   };
 
   return (
@@ -28,7 +29,7 @@ const SearchBar = (props) => {
       />
 
       <div className="searchButton-container">
-        <button className="searchButton" onClick={handleSearch}>
+        <button className="searchButton" type="button" onClick={handleSearch}>
           SEARCH
         </button>
       </div>
