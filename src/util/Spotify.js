@@ -7,9 +7,21 @@ let accessToken = null;
 const Spotify = {
   getAccessToken() {
     const storedToken = localStorage.getItem('spotifyAccessToken');
-    if (storedToken) {
-      accessToken = storedToken;
-      return Promise.resolve(accessToken);
+    const storedTokenExpiry = localStorage.getItem('spotifyTokenExpiry');
+
+    if (storedToken && storedTokenExpiry) {
+      const currentTime = Date.now();
+      const tokenExpiryTime = parseInt(storedTokenExpiry, 10);
+
+      if(currentTime < tokenExpiryTime) {
+        accessToken = storedToken;
+        return Promise.resolve(accessToken);
+
+      } else {
+        localStorage.removeItem('spotifyAccessToken');
+        localStorage.removeItem('spotifyTokenExpiry');
+        accessToken = '';
+      }
     }
 
     const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
@@ -19,16 +31,22 @@ const Spotify = {
       accessToken = accessTokenMatch[1];
       const expiresIn = Number(expireTimeMatch[1]);
 
+      const tokenExpiryTime = Date.now() + expiresIn * 1000;
       localStorage.setItem('spotifyAccessToken', accessToken);
+      localStorage.setItem('spotifyTokenExpiry', tokenExpiryTime.toString());
+
 
       window.setTimeout(() => {
+        console.log("Token expired. Removing from localStorage...");
         localStorage.removeItem('spotifyAccessToken');
+        localStorage.removeItem('spotifyTokenExpiry');
         accessToken = "";
       }, expiresIn * 1000);
 
       window.history.pushState("Access Token", null, "/");
       return Promise.resolve(accessToken);
     } else {
+      console.log("No valid token found. Redirecting to reauthorize...");
       const accessURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=${scope}&redirect_uri=${redirectURI}`;
       window.location.assign(accessURL);
       return Promise.resolve();
