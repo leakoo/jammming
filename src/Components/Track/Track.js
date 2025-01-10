@@ -37,11 +37,13 @@ function Track(props) {
       <img className="albumImage" src={props.track.albumImage}/>
       <div className="trackInfo">
         <h3>{props.track.name}</h3>
-        <p>
-          {props.track.artist} | {props.track.album}
-        </p>
+        <div className="song-detail">
+          <p>
+            {props.track.artist} | {props.track.album}
+          </p>
+          <p>{renderAction()}</p>
+        </div>
       </div>
-      {renderAction()}
     </div>
   );
 }

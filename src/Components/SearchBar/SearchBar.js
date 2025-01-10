@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import "./SearchBar.css";
 
 const SearchBar = (props) => {
@@ -9,7 +11,9 @@ const SearchBar = (props) => {
   };
 
   const handleSearch = (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    };
 
     if (Search.trim() !== "") {
       props.onSearch(Search);
@@ -25,14 +29,21 @@ const SearchBar = (props) => {
         placeholder="Enter Song Name"
         value={Search}
         onChange={handleInputChange}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSearch();
+          }
+        }}
         required
       />
-
-      <div className="searchButton-container">
-        <button className="searchButton" type="button" onClick={handleSearch}>
-          SEARCH
-        </button>
-      </div>
+      
+      <button 
+        className="searchButton" 
+        type="button" 
+        onClick={handleSearch}
+      >
+        <FontAwesomeIcon icon={faMagnifyingGlass} />
+      </button>
     </div>
   );
 };

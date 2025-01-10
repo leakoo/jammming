@@ -12,7 +12,7 @@ function TrackList(props) {
             track={track}
             onAdd={props.onAdd}
             onRemove={props.onRemove}
-            isRemoval={props.isRemoval}
+            isRemoval={props.isTrackInPlaylist ? props.isTrackInPlaylist(track) : props.isRemoval}
           />
         );
       })}

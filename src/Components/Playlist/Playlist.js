@@ -16,29 +16,36 @@ function Playlist(props) {
   );
 
   const handleClick = () => {
+    if (props.playlistTracks.length === 0) {
+      alert('Your playlist is empty. Please add some songs before saving.');
+      return;
+    };
     props.onSave();
     setPlaylistNameInput("");
   };
 
   return (
-    <div className="playlist">
-      <input
-        onChange={handleNameChange}
-        value={playlistNameInput}
-        type="text"
-        placeholder="Playlist Name"
-        required
-      />
+    <div className="playlistContainer">
+      <div className="playlistInputContainer">
+        <input
+          onChange={handleNameChange}
+          value={playlistNameInput}
+          type="text"
+          placeholder="Enter Playlist Name"
+          required
+        />
+      </div>
 
       <TrackList
         tracks={props.playlistTracks}
         onRemove={props.onRemove}
         isRemoval={true}
       />
-
-      <button onClick={handleClick} className="playlist-save">
-        Save To Spotify
-      </button>
+      <div className="saveButtonContainer">
+        <button onClick={handleClick} className="saveButton">
+          Save To Spotify
+        </button>
+      </div>
     </div>
   );
 }

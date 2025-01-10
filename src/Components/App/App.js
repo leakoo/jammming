@@ -29,6 +29,11 @@ function App() {
     );
   }, []);
 
+  const isTrackInPlaylist = useCallback(
+    (track) => playlistTracks.some((savedTrack) => savedTrack.id === track.id),
+    [playlistTracks]
+  );
+
   const renamePlaylist = useCallback((name) => {
     setPlaylistName(name);
   }, []);
@@ -50,13 +55,18 @@ function App() {
   return (
     <>
       <h1 className="title">
-        <span>Ja</span>mmm<span>ing</span>
+        Ja<span>mmm</span>ing
       </h1>
-      <div className="app">
+      <div>
         <SearchBar onSearch={search} />
 
-        <div className="Results-Playlist-Container">
-          <SearchResults searchResults={searchResults} onAdd={addTrack} />
+        <div>
+          <SearchResults 
+            searchResults={searchResults} 
+            onAdd={addTrack} 
+            onRemove={removeTrack}
+            isTrackInPlaylist={isTrackInPlaylist}
+          />
 
           <Playlist
             playlistName={playlistName}

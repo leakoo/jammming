@@ -1,0 +1,8 @@
+.resultsHeader {
+    display: inline-block;
+    background-color: #212121;
+    color: #1DB954;
+    font-size: 2.25rem;
+    padding-left: 0.5rem;
+    border-radius: 100px;
+}
