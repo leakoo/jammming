@@ -6,3 +6,9 @@
     padding-left: 0.5rem;
     border-radius: 100px;
 }
+
+@media (min-width: 480px) {
+    .resultsHeader {
+        font-size: 3rem;
+    }
+}

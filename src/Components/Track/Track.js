@@ -41,7 +41,7 @@ function Track(props) {
           <p>
             {props.track.artist} | {props.track.album}
           </p>
-          <p>{renderAction()}</p>
+          <p className="addToPlaylist">{renderAction()}</p>
         </div>
       </div>
     </div>

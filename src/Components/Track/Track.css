@@ -7,10 +7,9 @@
 .trackInfo {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
     background-color: #19ca31;
     color: #FFF;
-    min-height: 5rem;
+    height: 5rem;
     width: 100%;
     padding: 0.63rem;
     overflow: hidden;
@@ -30,21 +29,21 @@
     white-space: nowrap; 
     overflow: hidden; 
     text-overflow: ellipsis; 
-  }
+}
 
-  .song-detail {
-    display: flex;
-    justify-content: space-between;
-  }
+.song-detail {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .trackInfo p {
-    display: flex;
-    max-width: 90%;
-    font-size: 0.8rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+.trackInfo p {
+  display: flex;
+  max-width: 90%;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .albumImage {
     max-width: 4.9rem;
@@ -75,4 +74,34 @@
   background-color: #19ca31c7; 
   transition: none;
   font-size: 13px;
+}
+
+.addToPlaylist {
+  margin-top: -10px;
+}
+
+@media (min-width: 480px) {
+  .trackInfo {
+    height: 6rem;
+    padding: 0.75rem;
+  }
+
+  .albumImage {
+    max-width: 5.9rem;
+  }
+
+  .trackInfo h3 {
+    font-size: 1.25rem; 
+  }
+
+  .trackInfo p {
+    font-size: 1rem;
+  }
+  
+  .trackAction {
+    font-size: 1.25rem;
+    border-radius: 15px;
+    width: 25px;
+    height: 25px;
+  }
 }
