@@ -31,3 +31,9 @@ span {
     font-size: 4rem;
   }
 }
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 5rem;
+  }
+}
