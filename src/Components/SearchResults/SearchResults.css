@@ -7,14 +7,22 @@
     border-radius: 20px;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 480px) and (max-width: 767px) {
     .resultsHeader {
         font-size: 3rem;
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
     .resultsHeader {
+        font-size: 3rem;
+        margin-left: 2.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .resultsHeader {
+        font-size: 3rem;
         margin-left: 2.5rem;
     }
 }

@@ -1,0 +1,8 @@
+@media (min-width: 1024px) {
+    .trackList {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}

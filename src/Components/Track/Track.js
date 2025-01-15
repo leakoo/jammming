@@ -6,14 +6,14 @@ function Track(props) {
     (e) => {
       props.onAdd(props.track);
     },
-    [props.onAdd, props.track]
+    [props]
   );
 
   const removeTrack = useCallback(
     (e) => {
       props.onRemove(props.track);
     },
-    [props.onRemove, props.track]
+    [props]
   );
 
   const renderAction = () => {
@@ -34,7 +34,7 @@ function Track(props) {
 
   return (
     <div className="track">
-      <img className="albumImage" src={props.track.albumImage}/>
+      <img className="albumImage" src={props.track.albumImage} alt="album"/>
       <div className="trackInfo">
         <h3>{props.track.name}</h3>
         <div className="song-detail">

@@ -37,3 +37,7 @@ span {
     font-size: 5rem;
   }
 }
+
+@media (min-width: 1024px) {
+  
+}
