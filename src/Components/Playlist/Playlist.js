@@ -12,7 +12,7 @@ function Playlist(props) {
       setPlaylistNameInput(e.target.value);
       props.onNameChange(e.target.value);
     },
-    [props.onNameChange]
+    [props]
   );
 
   const handleClick = () => {
