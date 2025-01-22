@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from "react";
 import "./App.css";
-import Playlist from "../Playlist/Playlist.js";
-import SearchBar from "../SearchBar/SearchBar.js";
-import SearchResults from "../SearchResults/SearchResults.js";
+import Playlist from "../tempPlaylist/tempPlaylist.js";
+import SearchBar from "../tempSearchBar/tempSearchBar.js";
+import SearchResults from "../tempSearchResults/tempSearchResults.js";
 import Spotify from "../../util/spotify.js";
 
 function App() {
