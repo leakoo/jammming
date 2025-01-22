@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
-import "./SearchBar.css";
+import "./search-bar.css";
 
 const SearchBar = (props) => {
   const [Search, setSearch] = useState("");

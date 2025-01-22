@@ -1,6 +1,6 @@
 import React from "react";
-import Track from "../tempTrack/tempTrack.js";
-import './TrackList.css'
+import Track from "../track/track.js";
+import './tracklist.css'
 
 function TrackList(props) {
   return (
