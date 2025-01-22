@@ -120,7 +120,36 @@ const Spotify = {
       }
     );
   },
+
+  handleCallback() {
+    const accessTokenMatch = window.location.hash.match(/access_token=([^&]*)/);
+    const expireTimeMatch = window.location.hash.match(/expires_in=([^&]*)/);
+
+    if (accessTokenMatch && expireTimeMatch) {
+      accessToken = accessTokenMatch[1];
+      const expiresIn = Number(expireTimeMatch[1]);
+
+      const tokenExpiryTime = Date.now() + expiresIn * 1000;
+      localStorage.setItem('spotifyAccessToken', accessToken);
+      localStorage.setItem('spotifyTokenExpiry', tokenExpiryTime.toString());
+
+      window.setTimeout(() => {
+        console.log("Token expired. Removing from localStorage...");
+        localStorage.removeItem('spotifyAccessToken');
+        localStorage.removeItem('spotifyTokenExpiry');
+        accessToken = "";
+      }, expiresIn * 1000);
+
+      window.history.pushState("Access Token", null, "/");
+    } else {
+      console.log("No access token in URL. Something went wrong!");
+    }
+  }
 };
+
+if (window.location.pathname === "/callback") {
+  Spotify.handleCallback();
+}
 
 //console.log("Value returned by getAccessToken():", Spotify.getAccessToken());
 //console.log("Value returned by scope", scope);
