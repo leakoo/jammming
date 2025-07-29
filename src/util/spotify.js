@@ -44,3 +44,65 @@ const authorize = async () => {
   authURL.search = new URLSearchParams(params).toString();
   window.location.href = authURL.toString();
 };
+
+const getAccessToken = async (code) => {
+  const codeVerifier = localStorage.getItem('code_verifier');
+
+  if (!code || !codeVerifier) {
+    return false;
+  }
+
+  const response = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      client_id: clientID,
+      grant_type: 'authorization_code',
+      code: code,
+      redirect_uri: redirectURI,
+      code_verifier: codeVerifier,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (data.access_token) {
+    localStorage.setItem('access_token', data.access_token);
+    localStorage.setItem('refresh_token', data.refresh_token);
+    return true;
+  }
+  return false;
+};
+
+const getRefreshToken = async () => {
+  const refreshToken = localStorage.getItem('refresh_token');
+
+  if (!refreshToken) {
+    return false;
+  }
+
+  const response = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+      client_id: clientID,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (data.access_token) {
+    localStorage.setItem('access_token', data.access_token);
+    if (data.refresh_token) {
+      localStorage.setItem('refresh_token', data.refresh_token);
+    }
+    return true;
+  }
+  return false;
+};
