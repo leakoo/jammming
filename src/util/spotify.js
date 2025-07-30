@@ -106,3 +106,56 @@ const getRefreshToken = async () => {
   }
   return false;
 };
+
+const search = async (term) => {
+  let accessToken = localStorage.getItem('access_token');
+
+  if (!accessToken) {
+    await authorize();
+    return [];
+  }
+
+  try {
+    let response = await fetch(
+      `https://api.spotify.com/v1/search?type=track&q=${encodeURIComponent(term)}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (response.status === 401) {
+      const refreshed = await getRefreshToken();
+      if (!refreshed) {
+        await authorize();
+        return [];
+      }
+      accessToken = localStorage.getItem('access_token');
+      response = await fetch(
+        `https://api.spotify.com/v1/search?type=track&q=${encodeURIComponent(term)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+      );
+    }
+
+    const data = await response.json();
+    if (!data.tracks) return [];
+
+    return data.tracks.items.map(track => ({
+      id: track.id,
+      name: track.name,
+      artist: track.artists[0].name,
+      album: track.album.name,
+      albumImage: track.album.images[0].url,
+      uri: track.uri,
+      previewUrl: track.preview_url
+    }));
+  } catch (error) {
+    console.error('Error searching tracks:', error);
+    return [];
+  }
+};
