@@ -159,3 +159,59 @@ const search = async (term) => {
     return [];
   }
 };
+
+const saveUserPlaylist = async (name, trackURIs) => {
+  if (!name || !trackURIs.length) return;
+
+  const accessToken = localStorage.getItem('access_token');
+  if (!accessToken) return;
+
+  try {
+    const userResponse = await fetch('https://api.spotify.com/v1/me', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+    const userData = await userResponse.json();
+
+    const createPlaylistResponse = await fetch(
+      `https://api.spotify.com/v1/users/${userData.id}/playlists`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          public: false
+        })
+      }
+    );
+    const playlistData = await createPlaylistResponse.json();
+
+    await fetch(`https://api.spotify.com/v1/playlists/${playlistData.id}/tracks`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        uris: trackURIs
+      })
+    });
+
+    return true;
+  } catch (error) {
+    console.error('Error saving playlist:', error);
+    return false;
+  }
+};
+
+export {
+  authorize,
+  getAccessToken,
+  getRefreshToken,
+  search,
+  saveUserPlaylist
+};
