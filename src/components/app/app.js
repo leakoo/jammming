@@ -1,14 +1,37 @@
-import React, { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import "./app.css";
 import Playlist from "../playlist/playlist.js";
 import SearchBar from "../search-bar/search-bar.js";
 import SearchResults from "../search-results/search-results.js";
-import Spotify from "../../util/spotify.js";
+import { getAccessToken, search, saveUserPlaylist, authorize } from "../../util/spotify.js";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [playlistName, setPlaylistName] = useState("");
   const [playlistTracks, setPlaylistTracks] = useState([]);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    const error = urlParams.get("error");
+
+    if (error) {
+      console.error("Auth error:", error);
+      return;
+    }
+
+    if (code) {
+      getAccessToken(code).then((success) => {
+        if (success) {
+          setIsAuthorized(true);
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+      });
+    } else if (localStorage.getItem("access_token")) {
+      setIsAuthorized(true);
+    }
+  }, []);
 
   const addTrack = useCallback(
     (track) => {
@@ -40,17 +63,21 @@ function App() {
 
   const savePlaylist = useCallback(() => {
     const trackURIs = playlistTracks.map((track) => track.uri);
-    Spotify.saveUserPlaylist(playlistName, trackURIs).then(() => {
+    saveUserPlaylist(playlistName, trackURIs).then(() => {
       setPlaylistName("Playlist Name");
       setPlaylistTracks([]);
     });
   }, [playlistName, playlistTracks]);
 
-  const search = useCallback((term) => {
-    Spotify.getAccessToken().then(() => {
-      Spotify.search(term).then(setSearchResults);
-    });
-  }, []);
+  const searchQuery = useCallback(
+    async (term) => {
+      if (!isAuthorized) {
+        await authorize();
+        return;
+      }
+      const results = await search(term);
+      setSearchResults(results);
+  },[isAuthorized]);
 
   return (
     <>
@@ -58,7 +85,7 @@ function App() {
         Ja<span>mmm</span>ing
       </h1>
       <div>
-        <SearchBar onSearch={search} />
+        <SearchBar onSearch={searchQuery} />
 
         <div>
           <SearchResults 
