@@ -14,7 +14,7 @@ Jammming is a web application built with React that allows users to search for s
 
 **Frontend:** React, JavaScript, CSS and Spotify Web API
 
-**Authentication:** OAuth 2.0 (Implicit Grant Flow)
+**Authentication:** OAuth 2.0 (Authorization Code Flow with PKCE)
 
 **Version Control & Hosting:** Git, GitHub and Netlify
 
@@ -33,8 +33,6 @@ Jammming is a web application built with React that allows users to search for s
 ## Roadmap
 
 - Include Song Preview for Each Track
-
-- Update to Authorization Code Grant with PKCE
 
 
 ## Demo
