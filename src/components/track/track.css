@@ -63,6 +63,7 @@
     width: 20px;
     height: 20px;
     transition: transform 0.7s ease;
+    cursor: pointer;
 }
 
 .trackAction:hover {
