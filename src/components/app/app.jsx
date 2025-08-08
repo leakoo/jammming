@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
 import "./app.css";
-import Playlist from "../playlist/playlist.js";
-import SearchBar from "../search-bar/search-bar.js";
-import SearchResults from "../search-results/search-results.js";
+import Playlist from "../playlist/playlist.jsx";
+import SearchBar from "../search-bar/search-bar.jsx";
+import SearchResults from "../search-results/search-results.jsx";
 import { getAccessToken, search, saveUserPlaylist, authorize } from "../../util/spotify.js";
 
 function App() {

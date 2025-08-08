@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import "./playlist.css";
-import TrackList from "../tracklist/tracklist.js";
+import TrackList from "../tracklist/tracklist.jsx";
 
 function Playlist(props) {
   const [playlistNameInput, setPlaylistNameInput] = useState(

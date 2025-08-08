@@ -1,5 +1,5 @@
 import "./search-results.css";
-import TrackList from "../tracklist/tracklist.js";
+import TrackList from "../tracklist/tracklist.jsx";
 
 function SearchResults(props) {
   return (

@@ -1,4 +1,4 @@
-import Track from "../track/track.js";
+import Track from "../track/track.jsx";
 import './tracklist.css'
 
 function TrackList(props) {
