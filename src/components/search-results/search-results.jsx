@@ -1,4 +1,3 @@
-import React from "react";
 import "./search-results.css";
 import TrackList from "../tracklist/tracklist.js";
 
