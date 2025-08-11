@@ -10,6 +10,11 @@ Jammming is a web application built with React that allows users to search for s
 ![jammming screenshot mobile](https://github.com/leakoo/jammming/raw/main/public/jammming%20screenshot%20mobile.png)
 
 
+## Demo
+
+https://leakoojammming.netlify.app/
+
+
 ## Tech Stack
 
 **Frontend:** React, JavaScript, CSS and Spotify Web API
@@ -35,18 +40,6 @@ Jammming is a web application built with React that allows users to search for s
 - Include Song Preview for Each Track
 
 
-## Demo
-
-https://leakoojammming.netlify.app/
-
-
-## Environment Variables
-
-To run this project, you will need to setup a app on the Spotify Dashboard to get a Client ID, then you will need to add the following environment variables to your .env file and make the Redirect URI the same as on your Spotify Dashboard example `https://localhost:3000/callback` for it to work.
-
-`REACT_APP_SPOTIFY_CLIENT_ID=Spotify Client ID`
-
-`REACT_APP_REDIRECT_URI=Example URL https://localhost:3000/callback`
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
