@@ -1,5 +1,5 @@
-const clientID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const redirectURI = process.env.REACT_APP_REDIRECT_URI;
+const clientID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+const redirectURI = import.meta.env.VITE_REDIRECT_URI;
 
 const scope = "playlist-modify-private playlist-modify-public user-read-private user-read-email";
 const authURL = new URL("https://accounts.spotify.com/authorize");
