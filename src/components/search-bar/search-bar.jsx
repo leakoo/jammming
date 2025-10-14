@@ -38,7 +38,8 @@ const SearchBar = (props) => {
       />
       
       <button 
-        className="searchButton" 
+        className="searchButton"
+        aria-label="Search button"
         type="button" 
         onClick={handleSearch}
       >
