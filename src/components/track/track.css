@@ -53,6 +53,7 @@
 
 .trackAction {
     display: flex;
+    color: #212121;
     background-color: #19ca31;
     align-items: center;
     justify-content: center;

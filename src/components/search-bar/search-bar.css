@@ -20,6 +20,7 @@
 }
 
 .searchButton {
+    color: #212121;
     cursor: pointer;
     font-weight: 600;
     background-color: #FFF;
